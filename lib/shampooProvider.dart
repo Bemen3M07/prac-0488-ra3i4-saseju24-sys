@@ -2,12 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'shampoo.dart';
 
 class ShampooProvider extends ChangeNotifier {
-  final List<Shampoo> shampoos = [
-    Shampoo(marca: 'shampoo1', quantitat: 300.0),
-    Shampoo(marca: 'shampoo2', quantitat: 250.0),
-    Shampoo(marca: 'shampoo3', quantitat: 200.0),
-    Shampoo(marca: 'shampoo4', quantitat: 180.0),
-  ];
+  final List<Shampoo> Shampus = [
+Shampoo(marca: 'Pantene', quantitat: 1.0,),
+Shampoo(marca: 'Timotei', quantitat: 1.1,),
+Shampoo(marca: 'H&S (H&S)',quantitat: 1.0,),
+Shampoo(marca: 'Garnier Fructis',quantitat: 1.0,),
+Shampoo(marca: 'L\'Oréal Elvive',quantitat: 2.5,),
+Shampoo(marca: 'Tresemmé',quantitat: 4.0,),
+Shampoo(marca: 'Kérastase',quantitat: 4.0,),
+Shampoo(marca: 'Wella Professionals',quantitat: 5.0,),
+];
+
+  
 
   late Shampoo shampooSeleccionado;
 
@@ -17,7 +23,7 @@ class ShampooProvider extends ChangeNotifier {
   static const double doseMl = 12.0;
 
   ShampooProvider() {
-    shampooSeleccionado = shampoos.first;
+    shampooSeleccionado = Shampus.first;
     _resetState();
   }
 
