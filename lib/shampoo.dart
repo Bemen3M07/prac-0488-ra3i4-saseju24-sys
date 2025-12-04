@@ -1,15 +1,9 @@
 class Shampoo {
-final String marca ;  //Marca 
-final double quantitat; // Quantitat de l'envas
+  final String marca;
+  final double quantitat; 
 
-
-Shampoo({
-required this.
-
-marca   ,
-required this.
-
-quantitat  ,
-});
+  Shampoo({
+    required this.marca,
+    required this.quantitat,
+  });
 }
-

@@ -6,21 +6,19 @@ import 'pantalla2.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => shampooProvider(),
-      child: const MyApp(),
+    ChangeNotifierProvider(create: (_) => ShampooProvider(),child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Shampoo App',
+      title: 'Examen Flutter Shampoo App',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
       routes: {
         '/': (context) => const pantalla1(),
         '/detalle': (context) => const pantalla2(),

@@ -1,56 +1,67 @@
 import 'package:flutter/foundation.dart';
 import 'shampoo.dart';
 
-class shampooProvider extends ChangeNotifier {
-  final List<Shampoo> Shampus = [
-Shampoo(marca: 'Pantene', quantitat: 1.0,),
-Shampoo(marca: 'Timotei', quantitat: 1.1,),
-Shampoo(marca: 'H&S (H&S)',quantitat: 1.0,),
-Shampoo(marca: 'Garnier Fructis',quantitat: 1.0,),
-Shampoo(marca: 'L\'Oréal Elvive',quantitat: 2.5,),
-Shampoo(marca: 'Tresemmé',quantitat: 4.0,),
-Shampoo(marca: 'Kérastase',quantitat: 4.0,),
-Shampoo(marca: 'Wella Professionals',quantitat: 5.0,),
-];
-
-  
+class ShampooProvider extends ChangeNotifier {
+  final List<Shampoo> shampoos = [
+    Shampoo(marca: 'Pantene', quantitat: 300.0),
+    Shampoo(marca: 'Timotei', quantitat: 250.0),
+    Shampoo(marca: 'H&S', quantitat: 260.0),
+    Shampoo(marca: 'Garnier Fructis', quantitat: 200.0),
+    Shampoo(marca: 'L\'Oréal Elvive', quantitat: 250.0),
+    Shampoo(marca: 'Tresemmé', quantitat: 400.0),
+    Shampoo(marca: 'Kérastase', quantitat: 250.0),
+    Shampoo(marca: 'Wella Professionals', quantitat: 300.0),
+  ];
 
   late Shampoo shampooSeleccionado;
 
-  double restant = 0.0;    // lo que queda
-  double consumit = 0.0;   // lo que se ha gastado
-  int dosisConsumidas = 0;     // dosis que se gastan
-  static const double dosis = 0.12;
+  // datos que calculamos y mantenemos, simlemente se utilizan en los metodos
+  static const double doseMl = 12.0;
+  final Map<int, double> _restantes = {};
+  final Map<int, double> _consumidos = {};
+  final Map<int, int> _dosis = {};
 
-  shampooProvider() {
-    shampooSeleccionado = Shampus.first;
-    _resetState();
+  ShampooProvider() {
+    shampooSeleccionado = shampoos.first;
+    for (int i = 0; i < shampoos.length; i++) {
+      _restantes[i] = shampoos[i].quantitat;
+      _consumidos[i] = 0.0;
+      _dosis[i] = 0;
+    }
   }
 
-  void cambiarShampoo(Shampoo s) {
+  void canviarShampoo(Shampoo s) {
     shampooSeleccionado = s;
-    _resetState();
     notifyListeners();
   }
 
-  void _resetState() {
-    restant = shampooSeleccionado.quantitat;
-    consumit = 0.0;
-    dosisConsumidas = 0;
-  }
+  int get _selectedIndex => shampoos.indexOf(shampooSeleccionado);
 
+  double get restanteSeleccionado =>
+      _restantes[_selectedIndex] ?? shampooSeleccionado.quantitat;
+  double get consumidoSeleccionado => _consumidos[_selectedIndex] ?? 0.0;
+  int get dosisSeleccionadas => _dosis[_selectedIndex] ?? 0;
+
+  // cada dosis resta 12 ml
   void usarDosis() {
-    if (restant <= 0) return;
+    final idx = _selectedIndex;
+    if (idx < 0) return;
 
-    double toma = dosis;
-    if (restant < dosis) toma = restant;
+    double restante = _restantes[idx] ?? shampooSeleccionado.quantitat;
+    if (restante <= 0) return;
 
-    restant -= toma;
-    consumit += toma;
-    dosisConsumidas += 1;
+    double toma = doseMl;
+    if (restante < doseMl) toma = restante;
 
-    // evitar negativos por precisión
-    if (restant.abs() < 1e-9) restant = 0.0;
+    restante -= toma;
+    double consumido = (_consumidos[idx] ?? 0.0) + toma;
+    int dosis = (_dosis[idx] ?? 0) + 1;
+
+    if (restante.abs() < 1e-9) restante = 0.0;
+
+    _restantes[idx] = restante;
+    _consumidos[idx] = consumido;
+    _dosis[idx] = dosis;
 
     notifyListeners();
   }
