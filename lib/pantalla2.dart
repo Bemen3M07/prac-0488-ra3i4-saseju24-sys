@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'shampooProvider.dart';
 
-class SegundaPagina extends StatefulWidget {
-  const SegundaPagina({super.key});
+class pantalla2 extends StatefulWidget {
+  const pantalla2({super.key});
 
   @override
-  State<SegundaPagina> createState() => _SegundaPaginaState();
+  State<pantalla2> createState() => _SegundaPaginaState();
 }
 
-class _SegundaPaginaState extends State<SegundaPagina> {
+class _SegundaPaginaState extends State<pantalla2> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<shampooProvider>(context);
@@ -24,22 +24,22 @@ class _SegundaPaginaState extends State<SegundaPagina> {
           children: [
             Text('Marca: ${s.marca}', style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 8),
-            Text('Cantidad original: ${s.quantitat.toStringAsFixed(1)} ml'),
+            Text('Cantidad original: ${s.quantitat} l'),
             const SizedBox(height: 8),
-            Text('Queda: ${provider.remaining.toStringAsFixed(1)} ml'),
+            Text('Queda: ${provider.restant} ml'),
             const SizedBox(height: 8),
-            Text('Gastado: ${provider.consumedMl.toStringAsFixed(1)} ml'),
+            Text('Gastado: ${provider.consumit} ml'),
             const SizedBox(height: 8),
-            Text('Dosis gastadas: ${provider.consumedDoses} (1 dosis = ${shampooProvider.doseMl.toStringAsFixed(0)} ml)'),
+            Text('Dosis gastadas: ${provider.dosisConsumidas} (1 dosis = ${shampooProvider.dosis} ml)'),
 
             const Spacer(),
 
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: provider.remaining > 0 ? () => provider.usarDosis() : null,
-                child: Text(provider.remaining > 0
-                    ? 'Usar 1 dosis (${shampooProvider.doseMl.toStringAsFixed(0)} ml)'
+                onPressed: provider.restant > 0 ? () => provider.usarDosis() : null,
+                child: Text(provider.restant > 0
+                    ? 'Usar 1 dosis (${shampooProvider.dosis.toStringAsFixed(0)} ml)'
                     : 'No queda shampoo'),
               ),
             ),

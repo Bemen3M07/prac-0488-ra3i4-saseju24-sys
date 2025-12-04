@@ -8,7 +8,7 @@ class pantalla1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ShampooProvider>(context);
+    final provider = Provider.of<shampooProvider>(context);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Selecciona un shampoo')),
@@ -19,7 +19,7 @@ class pantalla1 extends StatelessWidget {
             DropdownButton<Shampoo>(
               value: provider.shampooSeleccionado,
               isExpanded: true,
-              items: provider.shampoos
+              items: provider.Shampus
                   .map((s) => DropdownMenuItem(
                         value: s,
                         child: Text('${s.marca} — ${s.quantitat.toStringAsFixed(0)} ml'),

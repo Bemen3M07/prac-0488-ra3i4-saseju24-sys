@@ -7,7 +7,7 @@ import 'pantalla2.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (_) => ShampooProvider(),
+      create: (_) => shampooProvider(),
       child: const MyApp(),
     ),
   );
