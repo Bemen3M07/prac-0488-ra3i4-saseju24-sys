@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'shampoo.dart';
+import 'pantalla1.dart';
+import 'pantalla2.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(create: (_) => MotoProvider(), child: const MyApp()),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Calcul consum motos',
+      theme: ThemeData.light(),
+      routes: {
+        '/': (_) => const PrimeraPagina(),
+        '/segona': (_) => const SegonaPagina(),
+      },
     );
   }
 }
